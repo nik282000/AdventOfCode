@@ -30,7 +30,7 @@ g_dd = [[0,-1],[1,0],[0,1],[-1,0]] # guard direction...direction  ^ > v <
 height = len(map)
 width = len(map[0]) - 1
 in_bounds = True
-unique_total = 0
+unique_total = 1
 unique_list = []
 possible_loops = 0
 
