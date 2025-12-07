@@ -1,5 +1,3 @@
-import functools
-
 f = open('input', 'r')
 data = f.readlines()
 f.close
@@ -40,22 +38,27 @@ Elif x,y == ^ then
 return paths
 '''
 
-@functools.cache 
 def navigate(x,y):
-    paths = 0
-    if y == height:
-        return 1
-    if manifold[y][x] == '|':
-        paths += navigate(x,y+1)
-    elif manifold[y][x] == '^':
-        paths += navigate(x-1,y)
-        paths += navigate(x+1,y)
-    return paths
+    if f'{x}:{y}' in nav_cache:
+        return nav_cache[f'{x}:{y}']
+    else:
+        paths = 0
+        if y == height:
+            return 1
+        if manifold[y][x] == '|':
+            paths += navigate(x,y+1)
+        elif manifold[y][x] == '^':
+            paths += navigate(x-1,y)
+            paths += navigate(x+1,y)
+        nav_cache[f'{x}:{y}'] = paths
+        return paths
 
-debug = False
+debug = True
 total = 0
+nav_cache = {}
 
 '''
+
 Rules
 Start Cond  if x,y == . and x,y-1 == S then x,y = |
 Run Cond    if x,y == . and x,y-1 == | then x,y = |
